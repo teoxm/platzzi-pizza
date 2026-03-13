@@ -24,8 +24,8 @@ public class OrdenItemEntity {
     @Column(name = "id_pizza", nullable = false)
     private Integer idPizza;
 
-    @Column(nullable = false)
-    private Integer quantity;
+    @Column(nullable = false, columnDefinition = "NUMBER(2,1)")
+    private Double quantity;
 
     @Column(nullable = false, columnDefinition = "NUMBER(5,2)")
     private Double price;

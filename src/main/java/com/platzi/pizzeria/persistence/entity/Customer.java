@@ -15,7 +15,7 @@ public class Customer {
     @Column(nullable = false, length = 30)
     private String name;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 60)
     private String addres;
 
     @Column(nullable = false, length = 30)
