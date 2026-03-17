@@ -22,7 +22,7 @@ public class PizzaEntity {
     @Column(nullable = false, length = 30, unique = true)
     private String name;
 
-    @Column(nullable = false, length = 150)
+    @Column(name = "description", nullable = false, length = 150)
     private String descripcion;
 
     @Column(nullable = false, columnDefinition = "NUMBER(5,2)")
