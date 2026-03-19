@@ -32,4 +32,5 @@ public class OrderController {
     public ResponseEntity<List<OrderEntity>> getOutSideOrders(){
         return ResponseEntity.ok(this.orderService.getOutSideOrders());
     }
+
 }

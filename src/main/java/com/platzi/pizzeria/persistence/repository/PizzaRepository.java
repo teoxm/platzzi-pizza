@@ -4,12 +4,15 @@ import com.platzi.pizzeria.persistence.entity.PizzaEntity;
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PizzaRepository extends ListCrudRepository<PizzaEntity, Integer> {
     List<PizzaEntity> findAllByAvailableTrueOrderByPrice();
-    PizzaEntity findAllByAvailableTrueAndNameIgnoreCase(String name);
+    Optional<PizzaEntity> findFirstByAvailableTrueAndNameIgnoreCase(String name);
     List<PizzaEntity> findAllByAvailableTrueAndDescripcionContainingIgnoreCase(String descripcion);
     List<PizzaEntity> findAllByAvailableTrueAndDescripcionNotContainingIgnoreCase(String descripcion);
+
+    List<PizzaEntity> findTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc(double price);
 
     int countByVeganTrue();
 
