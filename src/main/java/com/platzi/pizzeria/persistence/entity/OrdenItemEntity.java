@@ -14,7 +14,7 @@ import lombok.Setter;
 public class OrdenItemEntity {
 
     @Id
-    @Column(name = "id_orden", nullable = false)
+    @Column(name = "id_order", nullable = false)
     private Integer idOrder;
 
     @Id

@@ -2,9 +2,15 @@ package com.platzi.pizzeria.persistence.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "customer")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -15,7 +21,7 @@ public class Customer {
     @Column(nullable = false, length = 30)
     private String name;
 
-    @Column(nullable = false, length = 60)
+    @Column(name = "address",nullable = false, length = 60)
     private String addres;
 
     @Column(nullable = false, length = 30)

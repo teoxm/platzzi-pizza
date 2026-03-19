@@ -1,12 +1,21 @@
 package com.platzi.pizzeria.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "pizza_order")
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class OrderEntity {
 
     @Id
@@ -16,7 +25,7 @@ public class OrderEntity {
     private Integer idOrder;
 
 
-    @Column(name="id_costumer", nullable = false, length = 15)
+    @Column(name="id_customer", nullable = false, length = 15)
     private String idCostumer;
 
     @Column(name ="order_date",nullable = false, columnDefinition = "TIMESTAMP")
@@ -31,10 +40,11 @@ public class OrderEntity {
     @Column(name = "additional_notes", length = 200)
     private String additionalNotes;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)// no trae todo lo relacionado con esta relacion, a menos que se utilice, ne se realizan las consultas a customer
     @JoinColumn(name = "id_customer", referencedColumnName = "id_customer", insertable = false, updatable = false)
+    @JsonIgnore
     private Customer customer;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER) // al utilizarce el entity de esta clase automaticamente me trae la realacion
     private List<OrdenItemEntity> items;
 }
