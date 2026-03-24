@@ -29,7 +29,7 @@ public class OrdenItemEntity {
     private Double quantity;
 
     @Column(nullable = false, columnDefinition = "NUMBER(5,2)")
-    private Double price;
+        private Double price;
 
     @ManyToOne
     @JoinColumn(name = "id_order", referencedColumnName = "id_order", insertable = false, updatable = false)
