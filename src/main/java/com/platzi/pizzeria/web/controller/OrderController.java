@@ -41,8 +41,8 @@ public class OrderController {
     }
 
     @GetMapping("/summary/{id}")
-    public ResponseEntity<List<OrderSummary>> getSummary(@PathVariable int id){
-        return ResponseEntity.ok(this.orderService.getSummary(id));
+    public OrderSummary getOrderSummary(@PathVariable Integer id) {
+        return orderService.getSummary(id);
     }
 
 

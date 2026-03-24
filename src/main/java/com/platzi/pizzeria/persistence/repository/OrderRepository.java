@@ -17,18 +17,19 @@ public interface OrderRepository extends ListCrudRepository<OrderEntity, Integer
     @Query(value = "SELECT * FROM pizza_order WHERE id_customer = :id", nativeQuery = true)
     List<OrderEntity> findCustomerOrders(@Param("id") Integer idCustomer);
 
-    @Query(value = """
-    SELECT 
-        po.id_order AS "idOrder",
-        c.name AS "customerName",
-        po.order_date AS "orderDate",
-        po.total AS "orderTotal",
-        CAST(LISTAGG(p.name, ', ') WITHIN GROUP (ORDER BY p.name) AS VARCHAR2(4000)) AS "pizzaNames"
-    FROM pizza_order po
-    JOIN customer c ON po.id_customer = c.id_customer
-    JOIN order_item oi ON po.id_order = oi.id_order
-    JOIN pizza p ON oi.id_pizza = p.id_pizza
-    WHERE po.id_order = ?1
-    GROUP BY po.id_order, c.name, po.order_date, po.total
-""", nativeQuery = true)
-    List<OrderSummary> findSummary(int orderId);}
+    @Query(value =
+            "SELECT po.ID_ORDER AS idOrder, " +
+                    "       po.TOTAL AS orderTotal, " +
+                    "       cu.NAME AS customerName, " +
+                    "       TO_CHAR(po.ORDER_DATE, 'YYYY-MM-DD') AS orderDate, " +
+                    "       po.METHOD AS method, " +
+                    "       LISTAGG(pi.NAME, ' ') WITHIN GROUP (ORDER BY pi.NAME) AS pizzaNames " +
+                    "FROM pizza_order po " +
+                    "INNER JOIN customer cu ON po.ID_CUSTOMER = cu.ID_CUSTOMER " +
+                    "INNER JOIN order_item oi ON po.ID_ORDER = oi.ID_ORDER " +
+                    "INNER JOIN pizza pi ON oi.ID_PIZZA = pi.ID_PIZZA " +
+                    "WHERE po.ID_ORDER = :idOrder " +
+                    "GROUP BY po.ID_ORDER, po.TOTAL, cu.NAME, po.ORDER_DATE, po.METHOD",
+            nativeQuery = true
+    )
+    OrderSummary findSummary(@Param("idOrder") int orderId);}

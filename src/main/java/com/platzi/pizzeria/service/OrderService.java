@@ -42,7 +42,7 @@ public class OrderService{
         return this.orderRepository.findCustomerOrders(idCustomer);
     }
 
-    public List<OrderSummary> getSummary(int orderId){
-        return this.orderRepository.findSummary(orderId);
+    public OrderSummary getSummary(Integer orderId) {
+        return orderRepository.findSummary(orderId);
     }
 }
