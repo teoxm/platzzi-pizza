@@ -5,16 +5,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+
+
 @Entity
 @Table(name ="pizza")
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter//estas anotaciones generan automaticamente los gtters y los setters de manera interna
 
 @NoArgsConstructor//genera un constructor sin parametros
-public class PizzaEntity {
+public class PizzaEntity extends AuditableEntity{
 
     @Id//indica que este atributo es la clave primaria de la tala pizza
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pizza_seq")//Genera un valor automatico de id al momento de ingresar un objeto a la tabla
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pizza_seq")
+//Genera un valor automatico de id al momento de ingresar un objeto a la tabla
     @SequenceGenerator(name = "pizza_seq", sequenceName = "PIZZA_SEQ", allocationSize = 1)
     @Column(name = "id_pizza", nullable = false)//anotacion que identifica el nomnre de la columna de la tabla
     private Integer idPizza;
@@ -36,4 +42,5 @@ public class PizzaEntity {
 
     @Column(columnDefinition = "NUMBER(1)")
     private Boolean available;
+
 }
