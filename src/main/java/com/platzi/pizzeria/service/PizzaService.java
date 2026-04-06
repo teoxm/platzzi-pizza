@@ -29,6 +29,7 @@ public class PizzaService {
 
     public Page<PizzaEntity> getAll(int page, int elements) {//se modifica para que la respuesta se paginada
         Pageable pageRequest = PageRequest.of(page, elements);
+
         return this.pizzaPagSortRepository.findAll(pageRequest);
     }
 

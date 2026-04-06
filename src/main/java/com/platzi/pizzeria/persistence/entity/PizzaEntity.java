@@ -1,5 +1,7 @@
 package com.platzi.pizzeria.persistence.entity;
 
+import com.platzi.pizzeria.persistence.audit.AuditPizzaListener;
+import com.platzi.pizzeria.persistence.audit.AuditableEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,16 +9,17 @@ import lombok.Setter;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 
 
 @Entity
 @Table(name ="pizza")
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class, AuditPizzaListener.class})
 @Getter
 @Setter//estas anotaciones generan automaticamente los gtters y los setters de manera interna
 
 @NoArgsConstructor//genera un constructor sin parametros
-public class PizzaEntity extends AuditableEntity{
+public class PizzaEntity extends AuditableEntity implements Serializable {
 
     @Id//indica que este atributo es la clave primaria de la tala pizza
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pizza_seq")
@@ -43,4 +46,16 @@ public class PizzaEntity extends AuditableEntity{
     @Column(columnDefinition = "NUMBER(1)")
     private Boolean available;
 
+    @Override
+    public String toString() {
+        return "PizzaEntity{" +
+                "idPizza=" + idPizza +
+                ", name='" + name + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", price=" + price +
+                ", vegetarian=" + vegetarian +
+                ", vegan=" + vegan +
+                ", available=" + available +
+                '}';
+    }
 }
